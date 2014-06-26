@@ -1,5 +1,5 @@
 .bg {
-  background: url('./assets/images/grove.jpg') no-repeat center center;
+  background: url('../images/grove.jpg') no-repeat center center;
   background-size: 100% 100%;
   position: fixed;
   width: 100% !important;
