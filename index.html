@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="dhrupad">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,6 +14,9 @@
     <script type="text/javascript" src="//use.typekit.net/lik0wlp.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
+    <!-- Parse -->
+    <script src="//www.parsecdn.com/js/parse-1.2.18.min.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -21,7 +24,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body style="height: 100%;min-height:100%;padding-top:50px;">
+  <body ng-controller="RSVPCtrl">
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -32,16 +35,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Dhrupad</a>
+          <a scroll-on-click class="navbar-brand" href="#start">Dhrupad</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav pull-right">
-            <li class="active"><a href="#invite">Invite</a></li>
-            <li><a href="#artistes">Artistes</a></li>
-            <li><a href="#program">Programme</a></li>
-            <li><a href="#rsvp">RSVP</a></li>
-            <li><a href="#directions">Directions</a></li>
-            <li><a href="#guests">Guests</a></li>
+            <li class="active"><a scroll-on-click href="#invite">Invite</a></li>
+            <li><a scroll-on-click href="#artistes">Artistes</a></li>
+            <li><a scroll-on-click href="#programme">Programme</a></li>
+            <li><a scroll-on-click href="#rsvp">RSVP</a></li>
+            <li><a scroll-on-click href="#directions">Directions</a></li>
+            <li><a scroll-on-click href="#guests">Guests</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -49,17 +52,20 @@
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="bg"></div>
-    <div class="jumbotron">
+    <div class="jumbotron" id="start">
       <div class="container">
         <h1>Dhrupad in the Grove</h1>
-        <p>Bahauddin Dagar and Pelva Naik, Saturday July 19th at 5:30pm</p>
-        <p><a class="btn btn-danger btn-lg" role="button">RSVP &raquo;</a></p>
+        <p>
+          Bahauddin Dagar and Pelva Naik<br />
+          Saturday July 19th at 5:30pm
+        </p>
+        <p><a scroll-on-click href="#rsvp" class="btn btn-danger btn-lg" role="button">RSVP &raquo;</a></p>
       </div>
     </div>
 
 
     <div class="container cinch" id="invite">
-      <h2>An Invitation from the Bangalore Dhrupad Group</h2>
+      <h2 style="text-align: center;">An Invitation from the Bangalore Dhrupad Group</h2>
 	On the evening of the 19th of July 2013, Bahauddin Dagar and Pelva Naik will be performing Dhrupad at Grove 4, Good Earth Orchard, Kengeri. The performance will start at 5:30 pm. <br /><br />
 	As the venue is a small and intimate space that seats only a 100 people, please RSVP here. The contribution per guest is Rs. 500. To help us plan better, we are adopting a first-come-first-served approach. Your attendance will be considered confirmed only after the payment is received.<br /><br />
         Please take a moment to read through the profiles of the artistes below.<br /><br />
@@ -71,7 +77,7 @@
 
     <div class="container cinch" id="artistes">
       <div class="media">
-        <h2>Pelva Naik</h2>
+        <h2 style="text-align: center;">Pelva Naik</h2>
         <div class="row">
           <div class="media-img pull-left col-xs-6 col-md-3 col-lg-3">
             <img class="img-polaroid img-responsive" src="./assets/images/pelvanaik.png" alt="">
@@ -84,7 +90,9 @@
           </div>
         </div>
 
-        <h2>Mohi Baha'ud-din Dagar</h2>
+        <div class="row" style="padding-top: 40px;"></div>
+
+        <h2 style="text-align: center;">Mohi Baha'ud-din Dagar</h2>
         <div class="row">
           <div class="media-body pull-left col-xs-6 col-md-9 col-lg-9">
               Pelva Naik, a young and forthcoming artist of her generation, has been trained in the Dhrupad style of vocal music under the eminent Dagar Gharana of Dhrupad music.<br /><br />
@@ -98,12 +106,52 @@
         </div>
 
       </div> <!-- media -->
-
-
     </div>
 
+    <hr>
 
-      <hr>
+    <div class="container cinch" id="programme" style="text-align: center;">
+      <h1>Programme</h1>
+    </div>
+
+    <hr>
+
+    <div class="container cinch" id="rsvp" style="text-align: center;">
+      <h1>RSVP</h1>
+      <div class="col-xs-12 col-sm-9 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+        <form ng-submit="addRSVP()">
+          <input class="form-control" type="text" ng-model="gname" placeholder="Your name" />
+          <input class="form-control" type="number" ng-model="gnum" placeholder="Number of attendees including you" />
+          <input class="form-control" type="text" ng-model="iname" placeholder="You were invited by" />
+          <input class="form-control btn-danger" type="submit" value="Submit" style="margin-top: 40px;">
+        </form>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class="container cinch" id="directions" style="text-align: center;">
+      <h1>Directions</h1>
+    </div>
+
+    <hr>
+
+    <div class="container cinch" id="guests" style="text-align: center;">
+      <h1>Guest List</h1>
+      <h3>Total guest count: {{total_guests()}} <br /><br /></h3>
+      <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
+        <input type="text" ng-model="search" class="search-query form-control" placeholder="Looking for someone?" style="text-align: center;">
+        <div style="padding-top: 20px; padding-bottom: 20px;"></div>
+        <p ng-repeat="rsvp in rsvps | orderBy: 'id':true | filter:search ">
+          {{rsvp.gname}} : {{rsvp.gnum}} guests<br />
+          Invited by {{rsvp.iname}}<br /><br />
+        </p>
+      </div>
+    </div>
+
+    <hr>
+
+
 
       <footer>
         <p>&copy; Company 2014</p>
@@ -115,6 +163,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"></script>
+    <script src="./assets/js/dhrupad.js"></script>
 
     <script>
 	$(document).ready(function($) {
