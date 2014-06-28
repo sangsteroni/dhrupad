@@ -24,6 +24,8 @@ function RSVPCtrl($scope, $http) {
    * On startup...
    */
   $scope.rsvps = [];
+  $scope.submitted = false;
+
   Parse.initialize("fUijf067YybdiQB7Io13VP66kDjkMQBASOXx16Yo", "338NN4cSdTPNZX3gbJ9YVDGoLxsDnEVnPev83w06");
 
   // Get all RSVPs
@@ -42,7 +44,9 @@ function RSVPCtrl($scope, $http) {
 
 
   $scope.addRsvp = function() {
-    $http({
+    if ($scope.myForm.$valid) {
+      // Submit as normal
+      $http({
 	method : 'POST',
 	url : 'https://api.parse.com/1/classes/Rsvp',
 	data : JSON.stringify({name: $scope.name, attendees: $scope.attendees, invitedby: $scope.invitedby}),
@@ -60,6 +64,9 @@ function RSVPCtrl($scope, $http) {
 		$scope.message = "Sorry, there seems to be some problem. We couldn't record your RSVP. Please contact "+$scope.invitedby+" to confirm your presence and to make the payment.";
                 alert("Error");
             });
+    } else {
+      $scope.myForm.submitted = true;
+    }
   };
 
 

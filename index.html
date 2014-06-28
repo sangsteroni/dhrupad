@@ -151,12 +151,34 @@
 
     <div class="container cinch" id="rsvp" style="text-align: center;">
       <h1>RSVP</h1>
+      <p style="font-size: 0.9em;">All fields are required</a>
       <div class="col-xs-12 col-sm-9 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
-        <form name="myForm">
-          <input class="form-control" type="text" ng-model="name" placeholder="Your name" />
-          <input class="form-control" type="number" ng-model="attendees" placeholder="Number of attendees including you" />
-          <input class="form-control" type="text" ng-model="invitedby" placeholder="You were invited by" />
-          <input class="form-control btn-danger" type="submit" value="Submit" style="margin-top: 40px;" ng-click="addRsvp()">
+        <form name="myForm" novalidate ng-submit="addRsvp()">
+          <input class="form-control" type="text" name="name" ng-model="name" placeholder="Your name" required />
+	  <div class="error-container" ng-show="myForm.name.$dirty && myForm.name.$invalid && myForm.submitted">
+	    <small class="error" 
+	        ng-show="myForm.name.$error.required">
+	        Your name is required.
+	    </small>
+	  </div>
+
+          <input class="form-control" type="number" name="attendees" ng-model="attendees" placeholder="Number of attendees including you" required />
+	  <div class="error-container" ng-show="myForm.attendees.$dirty && myForm.attendees.$invalid && myForm.submitted">
+	    <small class="error" 
+	        ng-show="myForm.attendees.$error.required">
+	        A number greater than 0 is required.
+	    </small>
+	  </div>
+
+          <input class="form-control" type="text" name="invitedby" ng-model="invitedby" placeholder="You were invited by" required />
+	  <div class="error-container" ng-show="myForm.invitedby.$dirty && myForm.invitedby.$invalid && myForm.submitted">
+	    <small class="error" 
+	        ng-show="myForm.invitedby.$error.required">
+	        Please tell us the name of the person who invited you.
+	    </small>
+	  </div>
+
+          <input class="form-control btn-danger" type="submit" value="Submit" style="margin-top: 40px;" ng-disabled="myForm.$invalid">
         </form>
       </div>
     </div>
