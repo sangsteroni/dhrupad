@@ -25,7 +25,7 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body ng-controller="RSVPCtrl" ng-init="getRsvps()">
+  <body ng-controller="RSVPCtrl">
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
@@ -43,9 +43,7 @@
             <li class="active"><a scroll-on-click href="#invite">Invite</a></li>
             <li><a scroll-on-click href="#artistes">Artistes</a></li>
             <li><a scroll-on-click href="#programme">Programme</a></li>
-            <li><a scroll-on-click href="#rsvp">RSVP</a></li>
             <li><a scroll-on-click href="#directions">Directions</a></li>
-            <li><a scroll-on-click href="#guests">Guests</a></li>
           </ul>
         </div><!--/.navbar-collapse -->
       </div>
@@ -60,7 +58,7 @@
           Bahauddin Dagar and Pelva Naik<br />
           Saturday July 19th at 5:30pm
         </p>
-        <p><a scroll-on-click href="#rsvp" class="btn btn-danger btn-lg" role="button" style="font-size: 1.1em;">&nbsp;&nbsp; RSVP &raquo; &nbsp;&nbsp;</a></p>
+        <p><a scroll-on-click href="#programme" class="btn btn-danger btn-lg" role="button" style="font-size: 1.1em;">&nbsp;&nbsp; Programme &raquo; &nbsp;&nbsp;</a></p>
       </div>
     </div>
 
@@ -69,7 +67,7 @@
       <h2 style="text-align: center;">An Invitation from the Bangalore Dhrupad Group</h2>
       <p style="margin-top: 20px;">
 	On the evening of the 19th of July 2013, Bahauddin Dagar and Pelva Naik will be performing Dhrupad at Grove 4, Good Earth Orchard, Kengeri. The performance will start at 5:30 pm. <br /><br />
-	As the venue is a small and intimate space that seats only a 100 people, please RSVP here. The contribution per guest is Rs. 500. To help us plan better, we are adopting a first-come-first-served approach. Your attendance will be considered confirmed only after the payment is received.<br /><br />
+	As the venue is a small and intimate space that seats only 100 people, please RSVP to the person who invited you. The contribution per guest is Rs. 500. To help us plan better, we are adopting a first-come-first-served approach. Your attendance will be considered confirmed only after the payment is received.<br /><br />
         Please take a moment to read through the profiles of the artistes below.<br /><br />
 
         Warm regards,<br />
@@ -162,42 +160,6 @@
 
     <hr>
 
-    <div class="container cinch" id="rsvp" style="text-align: center;">
-      <h1>RSVP</h1>
-      <p style="font-size: 0.9em;">All fields are required</a>
-      <div class="col-xs-12 col-sm-9 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
-        <form name="myForm" novalidate ng-submit="addRsvp()">
-          <input class="form-control" type="text" name="name" ng-model="name" placeholder="Your name" required />
-	  <div class="error-container" ng-show="myForm.name.$dirty && myForm.name.$invalid && myForm.submitted">
-	    <small class="error" 
-	        ng-show="myForm.name.$error.required">
-	        Your name is required.
-	    </small>
-	  </div>
-
-          <input class="form-control" type="number" name="attendees" ng-model="attendees" placeholder="Number of attendees including you" required />
-	  <div class="error-container" ng-show="myForm.attendees.$dirty && myForm.attendees.$invalid && myForm.submitted">
-	    <small class="error" 
-	        ng-show="myForm.attendees.$error.required">
-	        A number greater than 0 is required.
-	    </small>
-	  </div>
-
-          <input class="form-control" type="text" name="invitedby" ng-model="invitedby" placeholder="You were invited by" required />
-	  <div class="error-container" ng-show="myForm.invitedby.$dirty && myForm.invitedby.$invalid && myForm.submitted">
-	    <small class="error" 
-	        ng-show="myForm.invitedby.$error.required">
-	        Please tell us the name of the person who invited you.
-	    </small>
-	  </div>
-
-          <input class="form-control btn-danger" type="submit" value="Submit" style="margin-top: 40px;" ng-disabled="myForm.$invalid">
-        </form>
-      </div>
-    </div>
-
-    <hr>
-
     <div class="container cinch" id="directions" style="text-align: center;">
       <h1>Directions</h1>
       <p style="margin-top: 20px;">
@@ -210,24 +172,9 @@
 
     <hr>
 
-    <div class="container cinch" id="guests" style="text-align: center;">
-      <h1>Guest List</h1>
-      <h3>Total guest count: {{ total_guests() }} <br /><br /></h3>
-      <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2">
-        <input type="text" ng-model="query1" class="search-query form-control" placeholder="Looking for someone?" style="text-align: center;">
-        <div style="padding-top: 20px; padding-bottom: 20px;"></div>
-        <p ng-repeat="rsvp in rsvps.results | orderBy:'createdAt':true | filter:query1">
-          {{rsvp.name}} : {{rsvp.attendees}} guests<br />
-          Invited by {{rsvp.invitedby}}<br /><br />
-        </p>
-      </div>
-    </div>
-
-    <hr>
-
-      <footer style="text-align: center;">
-        <p>&copy; 2014 The Bangalore Dhrupad Group</p>
-      </footer>
+    <footer style="text-align: center;">
+      <p>&copy; 2014 The Bangalore Dhrupad Group</p>
+    </footer>
     </div> <!-- /container -->
 
 
